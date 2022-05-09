@@ -41,6 +41,12 @@ public class Zombie : MonoBehaviour
         return result;
     }
 
+    /* Kills the zombie. Destroys it from the hierarchy. */
+    public void kill()
+    {
+        
+    }
+
     public void button_test()
     {
         do_damage(20);
