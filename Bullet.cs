@@ -39,6 +39,16 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other) {
+        print("Hit! Trigger");
+        if (other.gameObject.tag == "Zombie")
+        {
+            Zombie victim = other.gameObject.GetComponent<Zombie>();
+            victim.do_damage(damage);
+            destroy_me();
+        }
+    }
+
     private void destroy_me()
     {
         Destroy(this.gameObject);
