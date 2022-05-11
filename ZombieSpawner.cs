@@ -26,15 +26,25 @@ public class ZombieSpawner : MonoBehaviour
     public void spawn_zombie(int row)
     {
         num_zombies++;
-        zombies.Add(Instantiate(zombie, transform.position + Vector3.down * 2 * 
-            (row - 1), transform.rotation));
+        zombies.Add(Instantiate(zombie, transform.position + Vector3.down * 2 *
+            (row - 1), transform.rotation, this.transform));
     }
 
+    // Creates a zombie in a random row. This is a shortcut method. 
     public void spawn_zombie()
     {
         // Random row 1-5
         int randInt = Random.Range(1, 6);
         spawn_zombie(randInt);
+    }
+
+    // Removes the zombie that calls this
+    public void remove_zombie(GameObject dead_zombie)
+    {
+        /* Do some cleanup on ZombieSpawner variables. Doesn't actually
+            destroy the zombie from the hierarchy. */
+        zombies.Remove(dead_zombie);
+        num_zombies--;
     }
 
     public void button_test()
