@@ -20,14 +20,14 @@ public class Zombie : MonoBehaviour
     void Start()
     {
         health = maxHealth;
-        speed = maxSpeed;
+        speed = 1f;
         animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += Vector3.left * speed * Time.deltaTime; 
+        transform.position += Vector3.left * maxSpeed * speed * Time.deltaTime; 
     }
 
     /*  Deals damage to a particular zombie. Returns whether the damage
