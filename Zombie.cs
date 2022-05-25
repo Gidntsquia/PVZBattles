@@ -14,6 +14,7 @@ public class Zombie : MonoBehaviour
     
     [Range(0,1)]
     public float speed;
+    private ZombieSpawner.SpawnDirection spawnDirection;
 
 
     // Start is called before the first frame update
@@ -22,12 +23,23 @@ public class Zombie : MonoBehaviour
         health = maxHealth;
         speed = 1f;
         animator = GetComponentInChildren<Animator>();
+        spawnDirection = Mathf.Abs(Quaternion.Angle(transform.rotation,
+                            Quaternion.identity)) < 90 ? 
+                            spawnDirection =
+                            ZombieSpawner.SpawnDirection.FROM_LEFT :
+                            spawnDirection = 
+                            ZombieSpawner.SpawnDirection.FROM_RIGHT;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += Vector3.left * maxSpeed * speed * Time.deltaTime; 
+        if (spawnDirection == ZombieSpawner.SpawnDirection.FROM_LEFT)
+            transform.position += Vector3.left * 
+                maxSpeed * speed * Time.deltaTime; 
+        else if (spawnDirection == ZombieSpawner.SpawnDirection.FROM_RIGHT)
+            transform.position += Vector3.right * 
+                maxSpeed * speed * Time.deltaTime; 
     }
 
     /*  Deals damage to a particular zombie. Returns whether the damage
@@ -64,7 +76,7 @@ public class Zombie : MonoBehaviour
     {
         coroutine_running = true;
         ZombieSpawner parent = GetComponentInParent<ZombieSpawner>();
-        parent.remove_zombie(this.gameObject);
+        parent.removeZombie(this.gameObject);
         speed = 0;
 
         // Play kill animation
